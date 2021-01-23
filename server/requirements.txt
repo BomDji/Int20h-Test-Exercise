@@ -1,0 +1,8 @@
+flask
+flask-restplus
+beautifulsoup4
+lxml
+werkzeug
+schedule
+bpython
+mongoengine
