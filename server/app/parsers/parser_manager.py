@@ -41,6 +41,7 @@ class ParserManager:
             if not product:
                 product = Product()
 
+                product.shop = shop
                 product.name = name
                 product.description = description
                 product.price = price
