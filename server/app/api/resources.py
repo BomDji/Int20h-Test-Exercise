@@ -59,3 +59,14 @@ class BuckweatProductsResource(Resource):
             response_object['products'].append(get_product_data(product))
 
         return jsonify(response_object)
+
+
+@api_rest.route('/search_products/<string:keyword>')
+class SearchProductsResource(Resource):
+    def get(self, keyword):
+        response_object = {'products': []}
+
+        for product in Product.objects(Q(name__icontains=keyword)):
+            response_object['products'].append(get_product_data(product))
+
+        return jsonify(response_object)
