@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Idea files
+.idea/
+
+# Parsed images
+server/app/static/imgs/
+!server/app/static/imgs/no_img.jpg

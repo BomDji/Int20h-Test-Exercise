@@ -2,8 +2,10 @@
 REST API Resource Routing
 """
 
+import os
+
 from datetime import datetime
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory
 from flask_restplus import Resource
 
 from .security import require_auth
@@ -14,7 +16,7 @@ from ..db_models.shop import Shop
 from ..db_models.product import Product
 from ..config import Config
 
-connect(Config.DB_ALIAS, alias='default', host='mongo')
+connect(Config.DB_NAME, alias='default')
 
 
 def get_buckwheat_products():
@@ -34,7 +36,7 @@ def get_product_data(product):
             'description': product.description,
             'price': product.price,
             'currency': product.currency,
-            'img_link': product.img_link,
+            'img_link': request.url_root + 'api/product-img/{product_id}'.format(product_id=product.id),
             'link': product.link,
             'price_history': product.price_history}
 
@@ -70,3 +72,19 @@ class SearchProductsResource(Resource):
             response_object['products'].append(get_product_data(product))
 
         return jsonify(response_object)
+
+
+@api_rest.route('/product-img/<string:product_id>')
+class SearchProductsResource(Resource):
+    def get(self, product_id):
+        current_proj_dir = os.path.dirname(os.path.realpath(__file__)) + '/..'
+        result_img_path = current_proj_dir + '/static/imgs/no_img.jpg'
+
+        product = Product.objects(id=product_id).first()
+        if product and product.img_path:
+            result_img_path = current_proj_dir + product.img_path
+
+        dir_path = '/'.join(result_img_path.split('/')[:-1])
+        file_name = result_img_path.split('/')[-1]
+
+        return send_from_directory(dir_path, file_name)
