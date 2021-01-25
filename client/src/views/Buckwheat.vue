@@ -1,6 +1,6 @@
 <template>
     <div class="root">
-    <div class="mx-auto mt-10 rounded-lg" style="max-width: 400px; height: 400px; overflow: scroll;">
+    <div class="mx-auto mt-10 rounded-lg" style="max-width: 400px; height: 400px; overflow: scroll; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
         <v-card v-for="(item, index) in list" v-bind:key="index"
             class="mx-auto"
             max-width="400"
@@ -53,7 +53,7 @@ export default {
         Vue.axios.get('http://127.0.0.1:5000/api/buckwheat_products',)
         .then((resp)=>{
             this.list=resp.data.products;
-            // console.log(this.list)
+            console.log(this.list)
         })
     },
     methods: { 

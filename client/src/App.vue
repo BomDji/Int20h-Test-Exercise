@@ -61,7 +61,9 @@
     </v-app-bar>
 
     <v-img
+
       max-height="800"
+      gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
       src="./assets/grechka.png"
     >
       <v-main>
