@@ -65,7 +65,7 @@
         color="grey darken-4"
       >
         <v-icon>mdi-cash-multiple</v-icon>
-        <span>Найдешевша гречка: 16.22 грн в Сільпо</span>
+        <span>Найдешевша гречка: {{minProductObject.price}} {{minProductObject.currency}} в <a :href="minProductObject.link">{{minProductObject.shop_name}}</a></span>
         <v-spacer></v-spacer>
       </v-system-bar>
       
@@ -112,8 +112,15 @@ export default {
           { title: 'Графік', icon: 'mdi-chart-areaspline', to: '/chart' },
           { title: 'Гречка',  icon: 'mdi-shopping-outline', to: '/buckwheat' },
         ],
-    info: null
+    info: null,
+    minProductObject: {}
   }),
+  mounted(){
+        Vue.axios.get('http://127.0.0.1:5000/api/minimum_buckwheat_price',)
+        .then((resp)=>{
+            this.minProductObject=resp.data;
+        })
+  },
   methods:{
     SearchProduct(){
       const url = 'http://127.0.0.1:5000/api/search_products/' + this.SearchTitle;

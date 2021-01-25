@@ -53,7 +53,6 @@ export default {
         Vue.axios.get('http://127.0.0.1:5000/api/buckwheat_products',)
         .then((resp)=>{
             this.list=resp.data.products;
-            console.log(this.list)
         })
     },
     methods: { 
