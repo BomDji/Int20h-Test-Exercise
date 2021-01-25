@@ -6,3 +6,4 @@ werkzeug
 schedule
 bpython
 mongoengine
+Flask-Cors
