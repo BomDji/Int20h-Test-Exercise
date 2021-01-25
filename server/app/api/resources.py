@@ -14,7 +14,7 @@ from ..db_models.shop import Shop
 from ..db_models.product import Product
 from ..config import Config
 
-connect(Config.DB_ALIAS, alias='default')
+connect(Config.DB_ALIAS, alias='default', host='mongo')
 
 
 def get_buckwheat_products():
@@ -46,6 +46,28 @@ class MinimumBuckweatPricesResource(Resource):
 
         for product in get_buckwheat_products()[:3]:
             response_object['products'].append(get_product_data(product))
+
+        return jsonify(response_object)
+
+
+@api_rest.route('/minimum_buckwheat_price')
+class MinimumBuckweatPriceResource(Resource):
+    def get(self):
+        minimum_buckweat = get_buckwheat_products()[0]
+
+        return jsonify(get_product_data(minimum_buckweat))
+
+
+@api_rest.route('/prices_history')
+class PricesHistoryResource(Resource):
+    def get(self):
+        response_object = {'products': []}
+        products = get_buckwheat_products()
+
+        for shop in Shop.objects():
+            shop_products = [product for product in products if product.shop.name == shop.name]
+            if shop_products:
+                response_object['products'].append(get_product_data(shop_products[0]))
 
         return jsonify(response_object)
 

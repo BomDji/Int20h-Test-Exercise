@@ -17,3 +17,9 @@ class Product(Document):
     img_link = StringField()
 
     category_tag = StringField()
+
+    def __repr__(self):
+        return f'{self.name} {self.shop} {self.price}'
+
+    def __unicode__(self):
+        return f'{self.name} {self.shop} {self.price}'
