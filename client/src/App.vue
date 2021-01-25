@@ -3,7 +3,9 @@
     
     <v-navigation-drawer 
       v-model="drawer"
+      color="grey darken-4"
       app
+      dark
     >
       <v-list-item>
         <v-list-item-content>
@@ -39,10 +41,10 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app style="width: 100vw;">
+    <v-app-bar color="grey darken-4" dark app style="width: 100vw;">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Товари</v-toolbar-title>
+      <!-- <v-toolbar-title>Товари</v-toolbar-title> -->
 
       <div class="w-3 h-2">
         <v-text-field
@@ -57,6 +59,15 @@
           >
         </v-text-field>
       </div>
+      
+      <v-system-bar
+        window
+        color="grey darken-4"
+      >
+        <v-icon>mdi-cash-multiple</v-icon>
+        <span>Найдешевша гречка: 16.22 грн в Сільпо</span>
+        <v-spacer></v-spacer>
+      </v-system-bar>
       
     </v-app-bar>
 
@@ -98,7 +109,8 @@ export default {
     drawer: null,
     items: [
           { title: 'Головна сторінка', icon: 'mdi-home-circle', to: '/' },
-          { title: 'Гречка', to: '/buckwheat' },
+          { title: 'Графік', icon: 'mdi-chart-areaspline', to: '/chart' },
+          { title: 'Гречка',  icon: 'mdi-shopping-outline', to: '/buckwheat' },
         ],
     info: null
   }),

@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Buckwheat from '../views/Buckwheat.vue';
 import Product from '../views/Product.vue';
+import Chart from '../views/Chart.vue';
 
 Vue.use(VueRouter);
 
@@ -17,12 +18,16 @@ const routes = [
         path: '/buckwheat',
         name: 'Buckwheat',
         component: Buckwheat
-    }
-    ,
+    },
     {
         path: '/product',
         name: 'Product',
         component: Product
+    },
+    {
+        path: '/chart',
+        name: 'Chart',
+        component: Chart
     }
 ]
 
