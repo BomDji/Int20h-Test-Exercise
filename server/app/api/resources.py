@@ -50,6 +50,28 @@ class MinimumBuckweatPricesResource(Resource):
         return jsonify(response_object)
 
 
+@api_rest.route('/minimum_buckwheat_price')
+class MinimumBuckweatPriceResource(Resource):
+    def get(self):
+        minimum_buckweat = get_buckwheat_products()[0]
+
+        return jsonify(get_product_data(minimum_buckweat))
+
+
+@api_rest.route('/prices_history')
+class PricesHistoryResource(Resource):
+    def get(self):
+        response_object = {'products': []}
+        products = get_buckwheat_products()
+
+        for shop in Shop.objects():
+            shop_products = [product for product in products if product.shop.name == shop.name]
+            if shop_products:
+                response_object['products'].append(get_product_data(shop_products[0]))
+
+        return jsonify(response_object)
+
+
 @api_rest.route('/buckwheat_products')
 class BuckweatProductsResource(Resource):
     def get(self):
