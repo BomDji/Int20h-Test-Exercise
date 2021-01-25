@@ -16,8 +16,6 @@ from ..db_models.shop import Shop
 from ..db_models.product import Product
 from ..config import Config
 
-connect(Config.DB_NAME, alias='default')
-
 
 def get_buckwheat_products():
     keywords = ['гречневая', 'гречана']
