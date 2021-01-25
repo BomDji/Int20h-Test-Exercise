@@ -61,13 +61,16 @@ class MinimumBuckweatPriceResource(Resource):
 @api_rest.route('/prices_history')
 class PricesHistoryResource(Resource):
     def get(self):
-        response_object = {'products': []}
+        response_object = {'series': []}
         products = get_buckwheat_products()
+        response_object['xaxis'] = [price_data[0] for price_data in products[0].price_history]
 
         for shop in Shop.objects():
             shop_products = [product for product in products if product.shop.name == shop.name]
             if shop_products:
-                response_object['products'].append(get_product_data(shop_products[0]))
+                series_object = {'name': shop.name,
+                                 'data': [price_data[1] for price_data in shop_products[0].price_history]}
+                response_object['series'].append(series_object)
 
         return jsonify(response_object)
 
@@ -95,7 +98,7 @@ class SearchProductsResource(Resource):
 
 
 @api_rest.route('/product-img/<string:product_id>')
-class SearchProductsResource(Resource):
+class ProductImgResource(Resource):
     def get(self, product_id):
         current_proj_dir = os.path.dirname(os.path.realpath(__file__)) + '/..'
         result_img_path = current_proj_dir + '/static/imgs/no_img.jpg'
