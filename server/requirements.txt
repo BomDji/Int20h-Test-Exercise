@@ -6,3 +6,4 @@ werkzeug
 schedule
 mongoengine
 requests
+Flask-Cors

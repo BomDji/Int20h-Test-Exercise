@@ -3,6 +3,8 @@
 ## Project setup
 ```
 npm install
+npm install vue-router
+npm install axios vue-axios
 ```
 
 ### Compiles and hot-reloads for development
