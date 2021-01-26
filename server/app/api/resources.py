@@ -6,10 +6,11 @@ import os
 
 from datetime import datetime
 from flask import request, jsonify, send_from_directory
-from flask_restplus import Resource
+from flask_restplus import Resource, reqparse
 
 from .security import require_auth
 from . import api_rest
+from .parsers import parser
 
 from mongoengine import connect, Q
 from ..db_models.shop import Shop
@@ -86,9 +87,11 @@ class BuckweatProductsResource(Resource):
         return jsonify(response_object)
 
 
-@api_rest.route('/search_products/<string:keyword>')
+@api_rest.route('/search_products/')
 class SearchProductsResource(Resource):
-    def get(self, keyword):
+    def get(self):
+        args = parser.parse_args()
+        keyword = args.get('keyword')
         response_object = {'products': []}
 
         for product in Product.objects(Q(name__icontains=keyword)):
