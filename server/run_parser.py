@@ -4,7 +4,7 @@ from app.config import Config
 from app.parsers.parser_manager import ParserManager
 
 
-connect(Config.DB_ALIAS, alias='default', host='mongo')
+connect(Config.DB_ALIAS, alias='default')
 
 
 def run():
