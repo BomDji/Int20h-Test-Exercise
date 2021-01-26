@@ -8,7 +8,7 @@
         >   
         <v-list-item three-line>
             <v-list-item-icon>
-                <img size="24px" style="width:50px" v-bind:src="'http://' + item.img_link">
+                <img size="24px" style="width:50px" v-bind:src="item.img_link">
             </v-list-item-icon>
         <v-list-item-content>    
         <v-list-item-title style="bold">
@@ -53,7 +53,6 @@ export default {
         Vue.axios.get('http://127.0.0.1:5000/api/buckwheat_products',)
         .then((resp)=>{
             this.list=resp.data.products;
-            console.log(this.list)
         })
     },
     methods: { 
