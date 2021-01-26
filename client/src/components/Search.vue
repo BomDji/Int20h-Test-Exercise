@@ -4,7 +4,7 @@
             <v-text-field
             style="background: rgba(255,255,255, 0.8); max-width: 500px; margin: auto;"
             v-model="SearchTitle"
-            @click:input="SearchProduct"
+            @input="SearchProduct"
             class="pa-3"
             outlined
             label="Я шукаю..."
