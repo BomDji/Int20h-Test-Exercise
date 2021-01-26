@@ -20,11 +20,23 @@ class ParserManager:
 
     IMGS_DIRS_PATH = '/static/imgs/'
 
+    PROXIES = {
+        'http': 'http://RvWdprXv:SChqzYfw@2.57.150.240:62221',
+        'https': 'http://RvWdprXv:SChqzYfw@2.57.150.240:62221',
+    }
+
+    def __init__(self):
+        self._use_proxy = True if os.getenv('USE_PROXY', 0) == 1 else False
+
     def _load_img(self, img_link):
         img_path = None
         if img_link != 'https://mages/preload.gif':
             try:
-                response = requests.get(img_link)
+                if self._use_proxy:
+                    response = requests.get(img_link, proxies=self.PROXIES)
+                else:
+                    response = requests.get(img_link)
+
                 img_path = self.IMGS_DIRS_PATH + uuid.uuid4().hex + '.' + img_link.split('.')[-1]
                 img_full_path = os.path.dirname(os.path.realpath(__file__)) + '/..' + img_path
                 file = open(img_full_path, "wb")
@@ -89,9 +101,15 @@ class ParserManager:
 
         while True:
             url = self.URL_TEMPLATE.format(category=self.CEREALS_TAG, page=page)
-            r = requests.get(url)
+
+            if self._use_proxy:
+                r = requests.get(url, proxies=self.PROXIES)
+            else:
+                r = requests.get(url)
 
             soup = BeautifulSoup(r.text, 'lxml')
+
+            print(soup)
 
             if page != 1:
                 meta_url = soup.find('meta', attrs={'property': 'og:url'}).get('content')
