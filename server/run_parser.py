@@ -1,10 +1,12 @@
-from mongoengine import connect
+import os
+
+from mongoengine import connect, disconnect
 
 from app.config import Config
 from app.parsers.parser_manager import ParserManager
 
-
-connect(Config.DB_ALIAS, alias='default')
+disconnect()
+connect(Config.DB_NAME, alias='default', host=os.getenv('MONGODB_HOST', ''))
 
 
 def run():

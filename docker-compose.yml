@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ./server
+      dockerfile: docker/web/Dockerfile
+    container_name: web
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/server
+    environment:
+      FLASK_ENV: development
+    depends_on:
+    - db
+    - parser
+  parser:
+    build:
+      context: ./server
+      dockerfile: docker/parser/Dockerfile
+    container_name: parser
+    restart: unless-stopped
+    volumes:
+      - ./server:/parser
+    depends_on:
+    - db
+  db:
+    image: mongo:latest
+    container_name: db
+    restart: unless-stopped
+    hostname: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=int20h_test_exercise
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+    ports:
+      - 27017:27017

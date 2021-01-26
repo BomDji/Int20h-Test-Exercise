@@ -1,6 +1,8 @@
 import requests
 import time
 import schedule
+import uuid
+import os
 
 from datetime import datetime
 
@@ -15,6 +17,23 @@ from ..db_models.product import Product
 class ParserManager:
     URL_TEMPLATE = 'https://price.ua/{category}/page{page}.html?sort_direction=asc&sort_by=price_asc'
     CEREALS_TAG = 'catc12388t1'
+
+    IMGS_DIRS_PATH = '/static/imgs/'
+
+    def _load_img(self, img_link):
+        img_path = None
+        if img_link != 'https://mages/preload.gif':
+            try:
+                response = requests.get(img_link)
+                img_path = self.IMGS_DIRS_PATH + uuid.uuid4().hex + '.' + img_link.split('.')[-1]
+                img_full_path = os.path.dirname(os.path.realpath(__file__)) + '/..' + img_path
+                file = open(img_full_path, "wb")
+                file.write(response.content)
+                file.close()
+            except requests.exceptions.ConnectionError:
+                pass
+
+        return img_path
 
     def parse_item(self, soup):
         products = soup.findAll('div', {'class': 'product-block'})
@@ -35,7 +54,7 @@ class ParserManager:
             price = float(price.replace(',', '.'))
 
             link = 'https://price.ua' + product.find('a', {'data-otc': 'price_button'}).get('href')
-            img_link = product.find('span', {'class': 'photo-wrap'}).find('img').get('src')[2:]
+            img_link = 'https://' + product.find('span', {'class': 'photo-wrap'}).find('img').get('src')[2:]
 
             product = Product.objects(Q(name=name) & Q(description=description) & Q(img_link=img_link)).first()
             if not product:
@@ -46,6 +65,7 @@ class ParserManager:
                 product.description = description
                 product.price = price
                 product.currency = currency
+                product.img_path = self._load_img(img_link)
                 product.img_link = img_link
                 product.link = link
                 product.category_tag = self.CEREALS_TAG
@@ -53,7 +73,14 @@ class ParserManager:
 
                 product.save()
             else:
+                if not product.img_path:
+                    img_path = self._load_img(img_link)
+
+                    product.img_path = img_path
+                    product.img_link = img_link
+
                 product.price = price
+                product.link = link
                 product.price_history.append((datetime.utcnow(), price))
                 product.save()
 

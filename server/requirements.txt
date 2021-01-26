@@ -4,6 +4,6 @@ beautifulsoup4
 lxml
 werkzeug
 schedule
-bpython
 mongoengine
+requests
 Flask-Cors

@@ -1,26 +1,30 @@
 <template>
     <div class="root">
-    <div class="mx-auto mt-10 rounded-lg" style="max-width: 400px; height: 400px; overflow: scroll;">
+    <div class="mx-auto mt-10 rounded-lg" style="max-width: 400px; height: 400px; overflow: scroll; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
         <v-card v-for="(item, index) in list" v-bind:key="index"
             class="mx-auto"
             max-width="400"
             tile
         >   
-            <v-list-item three-line>
-            <v-list-item-content>
-                <div class="d-inline">
-                    <img size="24px" :src=item.img_link> {{item.description}}
-                </div>
-                <br>
-                <br>
-                <div class="d-inline">
-                    <span class="float-left">Ціна: {{item.price}}  {{item.currency}}</span>
-                    <span class="float-right">
-                    <a :href="item.link">
-                        Перейти до магазину
-                    </a>
-                    </span>
-                </div>
+        <v-list-item three-line>
+            <v-list-item-icon>
+                <img size="24px" style="width:50px" v-bind:src="'http://' + item.img_link">
+            </v-list-item-icon>
+        <v-list-item-content>    
+        <v-list-item-title style="bold">
+            {{item.name}}
+        </v-list-item-title>
+        <v-list-item-subtitle>
+            {{item.description}}
+        </v-list-item-subtitle>
+        <div class="d-inline">
+            <span class="float-left">Ціна: {{item.price}}  {{item.currency}}</span>
+            <span class="float-right">
+            <a :href="item.link">
+                Перейти до магазину
+            </a>
+            </span>
+        </div>
             </v-list-item-content>
             </v-list-item>
         </v-card>
@@ -49,6 +53,7 @@ export default {
         Vue.axios.get('http://127.0.0.1:5000/api/buckwheat_products',)
         .then((resp)=>{
             this.list=resp.data.products;
+            console.log(this.list)
         })
     },
     methods: { 
