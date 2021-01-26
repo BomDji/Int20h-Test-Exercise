@@ -4,7 +4,7 @@
             <v-text-field
             style="background: rgba(255,255,255, 0.8); max-width: 500px; margin: auto;"
             v-model="SearchTitle"
-            @click:append="SearchProduct"
+            @click:input="SearchProduct"
             class="pa-3"
             outlined
             label="Я шукаю..."
@@ -72,7 +72,7 @@
                             <v-list-item-icon>
                                 <img size="24px" style="width:50px" v-bind:src="item.img_link">
                             </v-list-item-icon>
-                            <v-list-item-content>    
+                            <v-list-item-content>
                             <v-list-item-title style="bold">
                                 {{item.name}}
                             </v-list-item-title>
