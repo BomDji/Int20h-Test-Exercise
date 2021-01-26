@@ -3,7 +3,9 @@
     
     <v-navigation-drawer 
       v-model="drawer"
+      color="grey darken-4"
       app
+      dark
     >
       <v-list-item>
         <v-list-item-content>
@@ -39,24 +41,17 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app style="width: 100vw;">
+    <v-app-bar color="grey darken-4" dark app style="width: 100vw;">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Товари</v-toolbar-title>
-
-      <div class="w-3 h-2">
-        <v-text-field
-          v-model="SearchTitle"
-          @click:append="SearchProduct"
-          class="pa-3"
-          outlined
-          label="Я шукаю..."
-          append-icon="mdi-magnify"
-          hide-details
-          clearable
-          >
-        </v-text-field>
-      </div>
+      
+      <v-system-bar
+        window
+        color="grey darken-4"
+      >
+        <v-icon>mdi-cash-multiple</v-icon>
+        <span>Найдешевша гречка: {{minProductObject.price}} {{minProductObject.currency}} в <a :href="minProductObject.link">{{minProductObject.shop_name}}</a></span>
+        <v-spacer></v-spacer>
+      </v-system-bar>
       
     </v-app-bar>
 
@@ -67,7 +62,6 @@
       src="./assets/grechka.png"
     >
       <v-main>
-      <!-- <MainPage/> -->
         <router-view></router-view>
       </v-main>
     </v-img>
@@ -82,14 +76,12 @@ import VueAxios from 'vue-axios';
 
 Vue.use(VueAxios, axios)
 
-// import MainPage from './components/MainPage';
 import Footer from './components/Footer';
 
 export default {
   name: 'App',
 
   components: {
-    // MainPage,
     Footer
   },
 
@@ -98,20 +90,18 @@ export default {
     drawer: null,
     items: [
           { title: 'Головна сторінка', icon: 'mdi-home-circle', to: '/' },
-          { title: 'Гречка', to: '/buckwheat' },
+          { title: 'Графік', icon: 'mdi-chart-areaspline', to: '/chart' },
+          { title: 'Гречка',  icon: 'mdi-shopping-outline', to: '/buckwheat' },
         ],
-    info: null
+    info: null,
+    minProductObject: {}
   }),
-  methods:{
-    SearchProduct(){
-      const url = 'http://127.0.0.1:5000/api/search_products/' + this.SearchTitle;
-      location.href = url;
-      Vue.axios.get(url,)
+  mounted(){
+        Vue.axios.get('http://127.0.0.1:5000/api/minimum_buckwheat_price',)
         .then((resp)=>{
-            this.list=resp.data.products;
+            this.minProductObject=resp.data;
         })
-    }
-  }
+  },
   
 };
 
