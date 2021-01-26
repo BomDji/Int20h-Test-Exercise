@@ -36,7 +36,7 @@
         text
         href="/"
       >
-        Home
+        Головна сторінка
       </v-btn>
     </v-card-actions>
   </v-card>

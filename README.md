@@ -8,6 +8,7 @@ Int20h Test Exercise
 npm install
 npm install vue-router
 npm install axios vue-axios
+npm install --save vue-apexcharts
 ```
 
 ### Compiles and hot-reloads for development

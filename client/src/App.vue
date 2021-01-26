@@ -43,22 +43,6 @@
 
     <v-app-bar color="grey darken-4" dark app style="width: 100vw;">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <!-- <v-toolbar-title>Товари</v-toolbar-title> -->
-
-      <div class="w-3 h-2">
-        <v-text-field
-          v-model="SearchTitle"
-          @click:append="SearchProduct"
-          class="pa-3"
-          outlined
-          label="Я шукаю..."
-          append-icon="mdi-magnify"
-          hide-details
-          clearable
-          >
-        </v-text-field>
-      </div>
       
       <v-system-bar
         window
@@ -78,7 +62,6 @@
       src="./assets/grechka.png"
     >
       <v-main>
-      <!-- <MainPage/> -->
         <router-view></router-view>
       </v-main>
     </v-img>
@@ -93,14 +76,12 @@ import VueAxios from 'vue-axios';
 
 Vue.use(VueAxios, axios)
 
-// import MainPage from './components/MainPage';
 import Footer from './components/Footer';
 
 export default {
   name: 'App',
 
   components: {
-    // MainPage,
     Footer
   },
 
@@ -121,16 +102,6 @@ export default {
             this.minProductObject=resp.data;
         })
   },
-  methods:{
-    SearchProduct(){
-      const url = 'http://127.0.0.1:5000/api/search_products/' + this.SearchTitle;
-      location.href = url;
-      Vue.axios.get(url,)
-        .then((resp)=>{
-            this.list=resp.data.products;
-        })
-    }
-  }
   
 };
 
