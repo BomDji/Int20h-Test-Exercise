@@ -14,5 +14,4 @@ class Config(object):
     APP_DIR = os.path.dirname(__file__)
     ROOT_DIR = os.path.dirname(APP_DIR)
 
-    DB_ALIAS = 'int20h_test_exercise'
-
+    DB_NAME = 'int20h_test_exercise'
