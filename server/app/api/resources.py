@@ -8,6 +8,8 @@ from datetime import datetime
 from flask import request, jsonify, send_from_directory
 from flask_restplus import Resource, reqparse
 
+from urllib.parse import unquote_plus
+
 from .security import require_auth
 from . import api_rest
 from .parsers import parser
@@ -87,14 +89,12 @@ class BuckweatProductsResource(Resource):
         return jsonify(response_object)
 
 
-@api_rest.route('/search_products/')
+@api_rest.route('/search_products/<string:keyword>')
 class SearchProductsResource(Resource):
-    def get(self):
-        args = parser.parse_args()
-        keyword = args.get('keyword')
+    def get(self, keyword):
         response_object = {'products': []}
 
-        for product in Product.objects(Q(name__icontains=keyword)):
+        for product in Product.objects(Q(name__icontains=unquote_plus(keyword))):
             response_object['products'].append(get_product_data(product))
 
         return jsonify(response_object)
