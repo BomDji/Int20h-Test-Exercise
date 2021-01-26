@@ -1,6 +1,8 @@
 # Int20h-Test-Exercise
 Int20h Test Exercise
 
+[Click](http://64.225.99.61:8080/#/buckwheat)
+
 
 # Project setup
 # Client
