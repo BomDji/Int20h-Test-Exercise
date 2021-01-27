@@ -26,7 +26,7 @@ class ParserManager:
     }
 
     def __init__(self):
-        self._use_proxy = True if os.getenv('USE_PROXY', 0) == 1 else False
+        self._use_proxy = True if os.getenv('USE_PROXY', "0") == "1" else False
 
     def _load_img(self, img_link):
         img_path = None
