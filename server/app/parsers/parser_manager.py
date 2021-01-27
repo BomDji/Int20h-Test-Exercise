@@ -109,8 +109,6 @@ class ParserManager:
 
             soup = BeautifulSoup(r.text, 'lxml')
 
-            print(soup)
-
             if page != 1:
                 meta_url = soup.find('meta', attrs={'property': 'og:url'}).get('content')
                 current_page = int(meta_url.split('.html')[0].split('page')[1])
