@@ -132,7 +132,7 @@ export default {
     },
     methods:{
         SearchProduct(){
-        const url = 'http://127.0.0.1:5000/api/search_products/' + this.SearchTitle;
+        const url = 'http://64.225.99.61:5000/api/search_products/' + this.SearchTitle;
         Vue.axios.get(url,)
             .then((resp)=>{
                 console.log(this.items);

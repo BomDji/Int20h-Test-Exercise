@@ -10,9 +10,9 @@
         <v-sheet color="rgba(0, 0, 0, .12)">
             <template>
                 <div>
-                    <apexchart width="500" 
-                    :options="options" 
-                    :series="pricesHistorySeries" 
+                    <apexchart width="500"
+                    :options="options"
+                    :series="pricesHistorySeries"
                     :xaxis="pricesHistoryXaxis"
                     ></apexchart>
                 </div>
@@ -58,7 +58,7 @@ Vue.component('apexchart', VueApexCharts)
 export default {
     name: 'Chart',
     data(){ return{
-        
+
         options: {
             chart: {
                 type: "line",
@@ -68,11 +68,11 @@ export default {
             stroke:{
                 width: 2
             },
-            
+
             // xaxis: {
             //     categories: pricesHistoryXaxis
             // },
-            
+
             legend: {
                 horizontalAlign: "left",
                 offsetX: 40
@@ -85,11 +85,11 @@ export default {
 
     created () {
         this.initialize()
-    },  
+    },
 
     methods: {
         initialize () {
-        Vue.axios.get('http://127.0.0.1:5000/api/prices_history',)
+        Vue.axios.get('http://64.225.99.61:5000/api/prices_history',)
         .then((resp)=>{
             this.pricesHistorySeries = resp.data.series;
             this.pricesHistoryXaxis = {'categories':resp.data.xaxis};

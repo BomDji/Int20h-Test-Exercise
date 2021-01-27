@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
-    
-    <v-navigation-drawer 
+
+    <v-navigation-drawer
       v-model="drawer"
       color="grey darken-4"
       app
@@ -43,7 +43,7 @@
 
     <v-app-bar color="grey darken-4" dark app style="width: 100vw;">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      
+
       <v-system-bar
         window
         color="grey darken-4"
@@ -52,7 +52,7 @@
         <span>Найдешевша гречка: {{minProductObject.price}} {{minProductObject.currency}} в <a :href="minProductObject.link">{{minProductObject.shop_name}}</a></span>
         <v-spacer></v-spacer>
       </v-system-bar>
-      
+
     </v-app-bar>
 
     <v-img
@@ -97,12 +97,12 @@ export default {
     minProductObject: {}
   }),
   mounted(){
-        Vue.axios.get('http://127.0.0.1:5000/api/minimum_buckwheat_price',)
+        Vue.axios.get('http://64.225.99.61:5000/api/minimum_buckwheat_price',)
         .then((resp)=>{
             this.minProductObject=resp.data;
         })
   },
-  
+
 };
 
 </script>

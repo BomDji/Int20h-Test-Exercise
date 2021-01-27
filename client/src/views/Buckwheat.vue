@@ -5,12 +5,12 @@
                 class="mx-auto"
                 max-width="400"
                 tile
-            >   
+            >
                 <v-list-item three-line>
                     <v-list-item-icon>
                         <img size="24px" style="width:50px" v-bind:src="item.img_link">
                     </v-list-item-icon>
-                <v-list-item-content>    
+                <v-list-item-content>
                 <v-list-item-title style="bold">
                     {{item.name}}
                 </v-list-item-title>
@@ -30,7 +30,7 @@
             </v-card>
         </div>
         <div class="mx-auto mt-10 rounded-lg" style="text-aling: center !important;">
-            <button class="px-5 py-2 mx-auto d-flex white rounded-lg" v-on:click="ReverseList(list)"><v-icon class="px-2">mdi-reload</v-icon>  
+            <button class="px-5 py-2 mx-auto d-flex white rounded-lg" v-on:click="ReverseList(list)"><v-icon class="px-2">mdi-reload</v-icon>
             Змінити сортування</button>
         </div>
     </div>
@@ -50,12 +50,12 @@ export default {
         return {list: undefined}
     },
     mounted(){
-        Vue.axios.get('http://127.0.0.1:5000/api/buckwheat_products',)
+        Vue.axios.get('http://64.225.99.61:5000/api/buckwheat_products',)
         .then((resp)=>{
             this.list=resp.data.products;
         })
     },
-    methods: { 
+    methods: {
         ReverseList(list) {
                 this.list = list.slice().reverse();
             }
